@@ -11,5 +11,12 @@
     ],
     "python.analysis.extraPaths": [
         "~/.micropico-stubs/included"
+    ],
+    "python-envs.pythonProjects": [
+        {
+            "path": "RP2040-Zero.py",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
     ]
 }
