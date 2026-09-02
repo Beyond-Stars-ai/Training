@@ -54,6 +54,6 @@ int main() {
         printf("Hello, world!\n");
         pico_set_led(false);
         sleep_ms(LED_DELAY_MS);
-        printf("Hello, world!\n");
+        // printf("Hello, world!\n");
     }
 }
