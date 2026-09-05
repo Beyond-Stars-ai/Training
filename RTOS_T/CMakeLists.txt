@@ -28,7 +28,7 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(OLED C CXX ASM)
+project(RTOS_T C CXX ASM)
 
 set(PICO_CXX_ENABLE_RTTI 1)
 
@@ -37,30 +37,28 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(OLED OLED.c )
+add_executable(RTOS_T RTOS_T.c )
 
-pico_set_program_name(OLED "OLED")
-pico_set_program_version(OLED "0.1")
+pico_set_program_name(RTOS_T "RTOS_T")
+pico_set_program_version(RTOS_T "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(OLED 0)
-pico_enable_stdio_usb(OLED 1)
+pico_enable_stdio_uart(RTOS_T 0)
+pico_enable_stdio_usb(RTOS_T 0)
 
 # Add the standard library to the build
-target_link_libraries(OLED
+target_link_libraries(RTOS_T
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(OLED PRIVATE
+target_include_directories(RTOS_T PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(OLED 
+target_link_libraries(RTOS_T 
         hardware_i2c
-        hardware_dma
-        hardware_timer
         )
 
-pico_add_extra_outputs(OLED)
+pico_add_extra_outputs(RTOS_T)
 
