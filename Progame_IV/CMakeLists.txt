@@ -28,40 +28,35 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(RTOS_T C CXX ASM)
-
-set(PICO_CXX_ENABLE_RTTI 1)
+project(Progame_IV C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(RTOS_T RTOS_T.c )
+add_executable(Progame_IV Progame_IV.c )
 
-pico_set_program_name(RTOS_T "RTOS_T")
-pico_set_program_version(RTOS_T "0.1")
+pico_set_program_name(Progame_IV "Progame_IV")
+pico_set_program_version(Progame_IV "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(RTOS_T 0)
-pico_enable_stdio_usb(RTOS_T 0)
-
-pico_enable_rtt(RTOS_T 1)                    # 启用 RTT
+pico_enable_stdio_uart(Progame_IV 0)
+pico_enable_stdio_usb(Progame_IV 0)
 
 # Add the standard library to the build
-target_link_libraries(RTOS_T
-        pico_stdlib
-        pico_rtt  
-)
+target_link_libraries(Progame_IV
+        pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(RTOS_T PRIVATE
+target_include_directories(Progame_IV PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(RTOS_T 
+target_link_libraries(Progame_IV 
         hardware_i2c
         )
 
-pico_add_extra_outputs(RTOS_T)
+pico_add_extra_outputs(Progame_IV)
+
