@@ -24,14 +24,15 @@
       }
     },
     {
-      "label": "Flash (probe-rs)",
+      "label": "Flash",
+      "detail": "probe-rs download (SWD) —— 供「Flash Pico Project (SWD)」按钮调用，任务名必须是 Flash",
       "type": "process",
       "command": "probe-rs",
       "args": [
         "download",
         "--chip",
-        "${command:raspberry-pi-pico.getChip}",
-        "${command:raspberry-pi-pico.launchTargetPath}"
+        "rp2040",
+        "${workspaceFolder}/build/Progame_IV.elf"
       ],
       "dependsOrder": "sequence",
       "dependsOn": "Compile Project",
@@ -48,8 +49,8 @@
       "args": [
         "run",
         "--chip",
-        "${command:raspberry-pi-pico.getChip}",
-        "${command:raspberry-pi-pico.launchTargetPath}"
+        "rp2040",
+        "${workspaceFolder}/build/Progame_IV.elf"
       ],
       "dependsOrder": "sequence",
       "dependsOn": "Compile Project",
@@ -66,7 +67,7 @@
       "args": [
         "reset",
         "--chip",
-        "${command:raspberry-pi-pico.getChip}"
+        "rp2040"
       ],
       "presentation": {
         "reveal": "always",
@@ -81,7 +82,7 @@
       "args": [
         "erase",
         "--chip",
-        "${command:raspberry-pi-pico.getChip}"
+        "rp2040"
       ],
       "presentation": {
         "reveal": "always",
@@ -96,17 +97,20 @@
       "dependsOn": [
         "Compile Project"
       ],
-      "command": "${command:raspberry-pi-pico.getPicotoolPath}",
+      "command": "${userHome}/.pico-sdk/picotool/2.3.1/picotool/picotool",
       "args": [
         "load",
-        "${command:raspberry-pi-pico.launchTargetPath}",
+        "${workspaceFolder}/build/Progame_IV.elf",
         "-fx"
       ],
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "windows": {
+        "command": "${env:USERPROFILE}/.pico-sdk/picotool/2.3.1/picotool/picotool.exe"
+      }
     }
   ]
 }

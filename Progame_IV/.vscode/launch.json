@@ -12,7 +12,7 @@
       "runtimeArgs": [
         "dap-server"
       ],
-      "chip": "${command:raspberry-pi-pico.getChip}",
+      "chip": "rp2040",
       "flashingConfig": {
         "flashingEnabled": true,
         "haltAfterReset": false
@@ -20,9 +20,9 @@
       "coreConfigs": [
         {
           "coreIndex": 0,
-          "programBinary": "${command:raspberry-pi-pico.launchTargetPath}",
+          "programBinary": "${workspaceFolder}/build/Progame_IV.elf",
           "rttEnabled": true,
-          "svdFile": "${userHome}/.pico-sdk/sdk/2.3.1/src/${command:raspberry-pi-pico.getChip}/hardware_regs/${command:raspberry-pi-pico.getChipUppercase}.svd",
+          "svdFile": "${userHome}/.pico-sdk/sdk/2.3.1/src/rp2040/hardware_regs/RP2040.svd",
           "rttChannelFormats": [
             {
               "channelNumber": 0,
