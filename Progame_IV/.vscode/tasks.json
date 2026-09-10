@@ -5,10 +5,10 @@
       "label": "Compile Project",
       "type": "process",
       "isBuildCommand": true,
-      "command": "cargo",
+      "command": "${userHome}/.pico-sdk/ninja/v1.13.2/ninja",
       "args": [
-        "build",
-        "--release"
+        "-C",
+        "${workspaceFolder}/build"
       ],
       "group": {
         "kind": "build",
@@ -18,101 +18,89 @@
         "reveal": "always",
         "panel": "dedicated"
       },
-      "problemMatcher": "$rustc",
-      "options": {
-        "env": {
-          "PICOTOOL_PATH": "${command:raspberry-pi-pico.getPicotoolPath}",
-          "CHIP": "${command:raspberry-pi-pico.getChip}"
-        }
+      "problemMatcher": "$gcc",
+      "windows": {
+        "command": "${env:USERPROFILE}/.pico-sdk/ninja/v1.13.2/ninja.exe"
       }
     },
     {
-      "label": "Build + Generate SBOM (release)",
-      "type": "shell",
-      "command": "bash",
-      "args": [
-        "-lc",
-        "cargo sbom > ${command:raspberry-pi-pico.sbomTargetPathRelease}"
-      ],
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "-NoProfile",
-          "-ExecutionPolicy",
-          "Bypass",
-          "-Command",
-          "cargo sbom | Set-Content -Encoding utf8 ${command:raspberry-pi-pico.sbomTargetPathRelease}"
-        ]
-      },
-      "dependsOn": "Compile Project",
-      "presentation": {
-        "reveal": "silent",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Compile Project (debug)",
+      "label": "Flash (probe-rs)",
       "type": "process",
-      "isBuildCommand": true,
-      "command": "cargo",
+      "command": "probe-rs",
       "args": [
-        "build"
+        "download",
+        "--chip",
+        "${command:raspberry-pi-pico.getChip}",
+        "${command:raspberry-pi-pico.launchTargetPath}"
       ],
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
+      "dependsOrder": "sequence",
+      "dependsOn": "Compile Project",
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
       },
-      "problemMatcher": "$rustc",
-      "options": {
-        "env": {
-          "PICOTOOL_PATH": "${command:raspberry-pi-pico.getPicotoolPath}",
-          "CHIP": "${command:raspberry-pi-pico.getChip}"
-        }
-      }
+      "problemMatcher": []
     },
     {
-      "label": "Build + Generate SBOM (debug)",
-      "type": "shell",
-      "command": "bash",
+      "label": "Run + RTT (probe-rs)",
+      "type": "process",
+      "command": "probe-rs",
       "args": [
-        "-lc",
-        "cargo sbom > ${command:raspberry-pi-pico.sbomTargetPathDebug}"
+        "run",
+        "--chip",
+        "${command:raspberry-pi-pico.getChip}",
+        "${command:raspberry-pi-pico.launchTargetPath}"
       ],
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "-NoProfile",
-          "-ExecutionPolicy",
-          "Bypass",
-          "-Command",
-          "cargo sbom | Set-Content -Encoding utf8 ${command:raspberry-pi-pico.sbomTargetPathDebug}"
-        ]
-      },
-      "dependsOn": "Compile Project (debug)",
+      "dependsOrder": "sequence",
+      "dependsOn": "Compile Project",
       "presentation": {
-        "reveal": "silent",
-        "panel": "shared"
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Reset Target (probe-rs)",
+      "type": "process",
+      "command": "probe-rs",
+      "args": [
+        "reset",
+        "--chip",
+        "${command:raspberry-pi-pico.getChip}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Erase Chip (probe-rs)",
+      "type": "process",
+      "command": "probe-rs",
+      "args": [
+        "erase",
+        "--chip",
+        "${command:raspberry-pi-pico.getChip}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
       },
       "problemMatcher": []
     },
     {
       "label": "Run Project",
       "type": "shell",
+      "dependsOrder": "sequence",
       "dependsOn": [
-        "Build + Generate SBOM (release)"
+        "Compile Project"
       ],
       "command": "${command:raspberry-pi-pico.getPicotoolPath}",
       "args": [
         "load",
-        "-x",
-        "${command:raspberry-pi-pico.launchTargetPathRelease}",
-        "-t",
-        "elf"
+        "${command:raspberry-pi-pico.launchTargetPath}",
+        "-fx"
       ],
       "presentation": {
         "reveal": "always",

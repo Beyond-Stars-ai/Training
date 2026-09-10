@@ -1,7 +1,9 @@
 {
   "recommendations": [
     "marus25.cortex-debug",
-    "rust-lang.rust-analyzer",
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-extension-pack",
+    "ms-vscode.vscode-serial-monitor",
     "probe-rs.probe-rs-debugger",
     "raspberry-pi.raspberry-pi-pico"
   ]

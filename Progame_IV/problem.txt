@@ -1,0 +1,2 @@
+烧录指令
+probe-rs download --chip RP2040 build\Progame_IV.elf
