@@ -33,7 +33,7 @@
           ]
         }
       ],
-      "preLaunchTask": "Compile Project",
+      "preLaunchTask": "Build (silent)",
       "consoleLogLevel": "Debug",
       "wireProtocol": "Swd"
     }

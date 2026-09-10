@@ -24,6 +24,28 @@
       }
     },
     {
+      "label": "Build (silent)",
+      "detail": "静默构建：供 Flash / Debug / Run 作为依赖使用，成功时不弹出终端面板",
+      "type": "process",
+      "command": "${userHome}/.pico-sdk/ninja/v1.13.2/ninja",
+      "args": [
+        "-C",
+        "${workspaceFolder}/build"
+      ],
+      "group": {
+        "kind": "build"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "focus": false
+      },
+      "problemMatcher": "$gcc",
+      "windows": {
+        "command": "${env:USERPROFILE}/.pico-sdk/ninja/v1.13.2/ninja.exe"
+      }
+    },
+    {
       "label": "Flash",
       "detail": "probe-rs download (SWD) —— 供「Flash Pico Project (SWD)」按钮调用，任务名必须是 Flash",
       "type": "process",
@@ -32,10 +54,11 @@
         "download",
         "--chip",
         "rp2040",
+        "--reset",
         "${workspaceFolder}/build/Progame_IV.elf"
       ],
       "dependsOrder": "sequence",
-      "dependsOn": "Compile Project",
+      "dependsOn": "Build (silent)",
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
@@ -53,7 +76,7 @@
         "${workspaceFolder}/build/Progame_IV.elf"
       ],
       "dependsOrder": "sequence",
-      "dependsOn": "Compile Project",
+      "dependsOn": "Build (silent)",
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
@@ -95,7 +118,7 @@
       "type": "shell",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Compile Project"
+        "Build (silent)"
       ],
       "command": "${userHome}/.pico-sdk/picotool/2.3.1/picotool/picotool",
       "args": [
