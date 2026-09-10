@@ -21,20 +21,16 @@
         {
           "coreIndex": 0,
           "programBinary": "${command:raspberry-pi-pico.launchTargetPath}",
-          "rttEnabled": false,
-          "svdFile": "${userHome}/.pico-sdk/sdk/2.3.1/src/${command:raspberry-pi-pico.getChip}/hardware_regs/${command:raspberry-pi-pico.getChipUppercase}.svd"
-          // RTT 待 C 侧集成 SEGGER RTT 后启用：
-          // 1) 把上面的 "rttEnabled" 改为 true
-          // 2) 取消下面 rttChannelFormats 的注释
-          // 注意：C 的 printf 走字符串，dataFormat 必须用 "String"，不是 Rust 的 "Defmt"
-          // "rttChannelFormats": [
-          //   {
-          //     "channelNumber": 0,
-          //     "dataFormat": "String",
-          //     "mode": "NoBlockSkip",
-          //     "showTimestamps": true
-          //   }
-          // ]
+          "rttEnabled": true,
+          "svdFile": "${userHome}/.pico-sdk/sdk/2.3.1/src/${command:raspberry-pi-pico.getChip}/hardware_regs/${command:raspberry-pi-pico.getChipUppercase}.svd",
+          "rttChannelFormats": [
+            {
+              "channelNumber": 0,
+              "dataFormat": "String",
+              "mode": "NoBlockSkip",
+              "showTimestamps": true
+            }
+          ]
         }
       ],
       "preLaunchTask": "Compile Project",

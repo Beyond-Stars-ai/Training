@@ -44,6 +44,8 @@ pico_set_program_version(Progame_IV "0.1")
 pico_enable_stdio_uart(Progame_IV 0)
 pico_enable_stdio_usb(Progame_IV 0)
 
+pico_enable_stdio_rtt(Progame_IV 1) # Enable RTT
+
 # Add the standard library to the build
 target_link_libraries(Progame_IV
         pico_stdlib)
